@@ -1,15 +1,33 @@
 const express = require("express");
+const { books } = require("./database/connection");
 const app = express();
 require("./database/connection");
-app.get("/books", (req, res) => {
+app.use(express.json());
+
+app.get("/books", async (req, res) => {
+  const datas = await books.findAll();
   res.json({
     message: "Books is fetched",
+    datas: datas,
   });
 });
 
-app.post("/books", (req, res) => {
+app.post("/books", async (req, res) => {
+  const { bookName, bookPrice, bookAuthor, bookGenre } = req.body;
+  if (!bookName || !bookPrice || !bookAuthor || !bookGenre) {
+    return res.status(400).json({
+      message: "All fields are required!",
+    });
+  }
+  const data = await books.create({
+    bookName,
+    bookAuthor,
+    bookGenre,
+    bookPrice,
+  });
   res.json({
     message: "Books is Posted Successfully.",
+    data,
   });
 });
 

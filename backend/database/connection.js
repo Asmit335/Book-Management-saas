@@ -18,6 +18,8 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.books = require("./models/bookModel")(sequelize, DataTypes);
+db.products = require("./models/productModel")(sequelize, DataTypes);
+db.users = require("./models/userModel")(sequelize, DataTypes);
 
 //migrating data for syncing table in database supabase
 sequelize.sync({ alter: false }).then(() => {
