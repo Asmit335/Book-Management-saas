@@ -19,6 +19,9 @@ db.sequelize = sequelize;
 
 db.books = require("./models/bookModel")(sequelize, DataTypes);
 
-//migrating data
+//migrating data for syncing table in database supabase
+sequelize.sync({ alter: false }).then(() => {
+  console.log("Table migrated Sucessfully in Database");
+});
 
 module.exports = db;

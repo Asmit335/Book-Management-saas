@@ -1,7 +1,7 @@
 const bookModel = (sequelize, DataTypes) => {
   const Book = sequelize.define("book", {
     bookName: {
-      type: STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     bookPrice: {
@@ -12,7 +12,7 @@ const bookModel = (sequelize, DataTypes) => {
       defaultValue: "Asmit Khanal",
     },
     bookGenre: {
-      type: DataTypes.STRINg,
+      type: DataTypes.STRING,
     },
   });
   return Book;
