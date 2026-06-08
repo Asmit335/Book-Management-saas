@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { books } = require("../database/connection");
 
 exports.fetchBook = async (req, res) => {
@@ -48,14 +49,54 @@ exports.addBook = async (req, res) => {
   });
 };
 
-exports.editBook = (req, res) => {
+exports.editBook = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({
+      message: "Id not Found.",
+    });
+  }
+  //   const data = await books.findByPk(id);
+  //   if (!data) {
+  //     return res.status(400).json({
+  //       message: "Book not Found.",
+  //     });
+  //   }
+
+  const { bookName, bookPrice, bookAuthor, bookGenre } = req.body;
+  await books.update(
+    {
+      bookName,
+      bookPrice,
+      bookAuthor,
+      bookGenre,
+    },
+    { where: { id } },
+  );
+  const data = await books.findByPk(id);
+
   res.json({
     message: "Books is updated Sucessfully",
+    data,
   });
 };
 
-exports.deleteBook = (req, res) => {
+exports.deleteBook = async (req, res) => {
+  const { id } = req.params;
+  //   if (!id) {
+  //     return res.status(400).json({
+  //       message: "Id not found.",
+  //     });
+  //   }
+  const data = await books.destroy({
+    where: { id },
+  });
+  if (!data) {
+    return res.status(400).json({
+      message: "Book not found.",
+    });
+  }
   res.json({
-    message: "Books is deleted Successfully.",
+    message: "Book deleted Successfully.",
   });
 };
