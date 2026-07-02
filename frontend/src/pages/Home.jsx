@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar"
 import axios from "axios"
 const Home = () => {
   const [books, setBooks] = useState([])
+  
   const fetchBooks= async ()=>{
     const response= await axios.get("http://localhost:3000/books/")
     console.log("response", response.data);
