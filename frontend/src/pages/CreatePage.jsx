@@ -1,82 +1,139 @@
+import { useState } from "react"
 import Navbar from "../components/Navbar"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
  
 function CreatePage(){
+  const navigate=useNavigate()
+  const [addBook, setAddBook] = useState({
+    bookName: "",
+    bookPrice: "",
+    bookAuthor: "",
+    bookGenre: "Khanal Asmit",
+  })
+  const fetchToAddBook=async(e)=>{
+    e.preventDefault()
+    const response=await axios.post("http://localhost:3000/books",addBook)
+    if(response.status===200){
+      navigate("/")
+    }else{
+      alert("Something went wrong!");
+      
+    }
+    
+   }
+
+  const handleChange=(e)=>{
+    setAddBook({
+      ...addBook,
+        [e.target.name]:e.target.value
+    })
+  }
+
     return(
         <>
         <Navbar/>
-          <div className="flex items-center justify-center p-12">
-  <div className="mx-auto w-full max-w-[550px] bg-white">
-    <form>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-8">
+  <div className="w-full max-w-lg rounded-xl bg-white p-8 shadow-lg">
+    <h2 className="mb-6 text-center text-3xl font-bold text-[#07074D]">
+      Add New Book
+    </h2>
+
+    <form onSubmit={fetchToAddBook}>
+      {/* Book Name */}
       <div className="mb-5">
-        <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
-          Full Name
+        <label
+          htmlFor="bookName"
+          className="mb-2 block text-sm font-medium text-gray-700"
+        >
+          Book Name
         </label>
-        <input type="text" name="name" id="name" placeholder="Full Name" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+        <input
+          type="text"
+          id="bookName"
+          name="bookName"
+          value={addBook.bookName}
+          onChange={handleChange}
+          placeholder="Enter book name"
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+        />
       </div>
+
+      {/* Book Price */}
       <div className="mb-5">
-        <label htmlFor="phone" className="mb-3 block text-base font-medium text-[#07074D]">
-          Phone Number
+        <label
+          htmlFor="bookPrice"
+          className="mb-2 block text-sm font-medium text-gray-700"
+        >
+          Book Price
         </label>
-        <input type="text" name="phone" id="phone" placeholder="Enter your phone number" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+        <input
+          type="number"
+          id="bookPrice"
+          name="bookPrice"
+          value={addBook.bookPrice}
+          onChange={handleChange}
+          placeholder="Enter price"
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+        />
       </div>
+
+      {/* Book Author */}
       <div className="mb-5">
-        <label htmlFor="email" className="mb-3 block text-base font-medium text-[#07074D]">
-          Email Address
+        <label
+          htmlFor="bookAuthor"
+          className="mb-2 block text-sm font-medium text-gray-700"
+        >
+          Book Author
         </label>
-        <input type="email" name="email" id="email" placeholder="Enter your email" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+        <input
+          type="text"
+          id="bookAuthor"
+          name="bookAuthor"
+          value={addBook.bookAuthor}
+          onChange={handleChange}
+          placeholder="Enter author name"
+          defaultValue="Asmit Khanal"
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+        />
       </div>
-      <div className="-mx-3 flex flex-wrap">
-        <div className="w-full px-3 sm:w-1/2">
-          <div className="mb-5">
-            <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
-              Date
-            </label>
-            <input type="date" name="date" id="date" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-          </div>
-        </div>
-        <div className="w-full px-3 sm:w-1/2">
-          <div className="mb-5">
-            <label htmlFor="time" className="mb-3 block text-base font-medium text-[#07074D]">
-              Time
-            </label>
-            <input type="time" name="time" id="time" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-          </div>
-        </div>
-      </div>
-      <div className="mb-5 pt-3">
-        <label className="mb-5 block text-base font-semibold text-[#07074D] sm:text-xl">
-          Address Details
+
+      {/* Book Genre */}
+      <div className="mb-6">
+        <label
+          htmlFor="bookGenre"
+          className="mb-2 block text-sm font-medium text-gray-700"
+        >
+          Book Genre
         </label>
-        <div className="-mx-3 flex flex-wrap">
-          <div className="w-full px-3 sm:w-1/2">
-            <div className="mb-5">
-              <input type="text" name="area" id="area" placeholder="Enter area" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-            </div>
-          </div>
-          <div className="w-full px-3 sm:w-1/2">
-            <div className="mb-5">
-              <input type="text" name="city" id="city" placeholder="Enter city" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-            </div>
-          </div>
-          <div className="w-full px-3 sm:w-1/2">
-            <div className="mb-5">
-              <input type="text" name="state" id="state" placeholder="Enter state" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-            </div>
-          </div>
-          <div className="w-full px-3 sm:w-1/2">
-            <div className="mb-5">
-              <input type="text" name="post-code" id="post-code" placeholder="Post Code" className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-            </div>
-          </div>
-        </div>
+
+        <select
+          id="bookGenre"
+          name="bookGenre"
+          value={addBook.bookGenre}
+          onChange={handleChange}
+          className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none transition focus:border-indigo-500"
+        >
+          <option value="">Select Genre</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Non-Fiction">Non-Fiction</option>
+          <option value="Science">Science</option>
+          <option value="Technology">Technology</option>
+          <option value="History">History</option>
+          <option value="Biography">Biography</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Romance">Romance</option>
+          <option value="Horror">Horror</option>
+        </select>
       </div>
-      <div>
-        <button className="hover:shadow-form w-full rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">
-          Create
-        </button>
-        
-      </div>
+
+       <button
+        type="submit"
+        className="w-full rounded-lg bg-indigo-600 py-3 text-lg font-semibold text-white transition hover:bg-indigo-700"
+      >
+        Create Book
+      </button>
     </form>
   </div>
 </div>
