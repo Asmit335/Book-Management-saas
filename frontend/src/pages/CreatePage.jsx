@@ -14,7 +14,7 @@ function CreatePage(){
   })
   const fetchToAddBook=async(e)=>{
     e.preventDefault()
-    const response=await axios.post("http://localhost:3000/books",addBook)
+    const response=await axios.post("https://book-management-saas.onrender.com/books",addBook)
     if(response.status===200){
       navigate("/")
     }else{

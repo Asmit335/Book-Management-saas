@@ -8,7 +8,7 @@ function SinglePage(){
     const navigate=useNavigate()
     const [singleBook, setSingleBook] = useState({})
     const fetchSingleBook=async()=>{
-        const response=await axios.get(`http://localhost:3000/books/${id}`)
+        const response=await axios.get(`https://book-management-saas.onrender.com/books/${id}`)
         setSingleBook(response.data.data)
     }
     useEffect(()=>{

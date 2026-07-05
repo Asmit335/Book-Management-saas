@@ -15,7 +15,7 @@ function EditPage(){
     bookGenre:""
   })
   const fetchExistingBook=async()=>{
-    const response=await axios.get(`http://localhost:3000/books/${id}`)
+    const response=await axios.get(`https://book-management-saas.onrender.com/books/${id}`)
     setUpdateBookItem(response.data.data)
   }
   useEffect(()=>{
@@ -24,7 +24,7 @@ function EditPage(){
 
   const updateBook=async(e)=>{
     e.preventDefault()
-    const response=await axios.patch(`http://localhost:3000/books/${id}`,updateBookItem)
+    const response=await axios.patch(`https://book-management-saas.onrender.com/books/${id}`,updateBookItem)
     if(response.status===200){
       alert("Book Updated Sucessfully.")
       navigate(`/single-page/${id}`)
