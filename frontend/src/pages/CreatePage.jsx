@@ -10,7 +10,7 @@ function CreatePage(){
     bookName: "",
     bookPrice: "",
     bookAuthor: "",
-    bookGenre: "Khanal Asmit",
+    bookGenre: "",
   })
   const fetchToAddBook=async(e)=>{
     e.preventDefault()
@@ -23,13 +23,17 @@ function CreatePage(){
     }
     
    }
-
-  const handleChange=(e)=>{
+   
+   const handleChange=(e)=>{
+    let{name,value}=e.target
     setAddBook({
       ...addBook,
-        [e.target.name]:e.target.value
+        [name]:value
     })
   }
+
+  // console.log(addBook);
+  
 
     return(
         <>

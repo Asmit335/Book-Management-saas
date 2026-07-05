@@ -1,7 +1,7 @@
 import axios from "axios"
 import Navbar from "../components/Navbar"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 
 function SinglePage(){
     const {id}=useParams()
@@ -47,8 +47,13 @@ function SinglePage(){
       </p>
       <p>${singleBook.bookPrice}</p>
     </div>
-    <div className="flex justify-center">
-      <button onClick={deleteBook} type="button" className=" items-center w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+    <div className="flex gap-6 justify-center">
+        <Link to={`/edit/${id}`}>
+      <button type="button" className=" cursor-pointer items-center w-auto rounded-xl text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Edit
+            </button>
+        </Link>
+      <button onClick={deleteBook} type=" button" className=" cursor-pointer items-center w-auto text-red-600 text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none rounded-xl">
                 Delete
             </button>
     </div>        
